@@ -97,7 +97,7 @@ function Checkout() {
       setSubmitting(true);
 
       const response = await axios.post(
-        "http://localhost:5000/orders/create-payment-order",
+        "https://shopkart-ce9s.onrender.com/orders/create-payment-order",
         formData,
         {
           withCredentials: true,
@@ -136,7 +136,7 @@ function Checkout() {
       handler: async function (response) {
   try {
     const verifyResponse = await axios.post(
-      "http://localhost:5000/orders/verify-payment",
+      "https://shopkart-ce9s.onrender.com/orders/verify-payment",
       {
         orderId: paymentOrder.orderId,
         razorpayOrderId: response.razorpay_order_id,

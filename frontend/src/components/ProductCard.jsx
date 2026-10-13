@@ -14,7 +14,7 @@ function ProductCard({ product }) {
       setWishlistStatus("saving");
 
       await axios.post(
-        `http://localhost:5000/wishlist/${product._id}`,
+        `https://shopkart-ce9s.onrender.com/wishlist/${product._id}`,
         {},
         {
           withCredentials: true,

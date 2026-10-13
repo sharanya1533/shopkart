@@ -21,7 +21,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/customers/login",
+        "https://shopkart-ce9s.onrender.com/customers/login",
         formData,
         {
           withCredentials: true,

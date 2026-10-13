@@ -15,7 +15,7 @@ function CartProvider({ children }) {
       setCartError("");
 
       const response = await axios.get(
-        "http://localhost:5000/cart",
+        `${import.meta.env.VITE_API_URL}/customers/logout`,
         {
           withCredentials: true,
         }
@@ -50,7 +50,7 @@ function CartProvider({ children }) {
       setCartError("");
 
       const response = await axios.post(
-        `http://localhost:5000/cart/${productId}`,
+        `https://shopkart-ce9s.onrender.com/cart/${productId}`,
         {},
         {
           withCredentials: true,
@@ -89,7 +89,7 @@ function CartProvider({ children }) {
       setCartError("");
 
       const response = await axios.patch(
-        `http://localhost:5000/cart/${productId}`,
+        `https://shopkart-ce9s.onrender.com/cart/${productId}`,
         {
           quantity,
         },
@@ -130,7 +130,7 @@ function CartProvider({ children }) {
       setCartError("");
 
       const response = await axios.delete(
-        `http://localhost:5000/cart/${productId}`,
+        `https://shopkart-ce9s.onrender.com/cart/${productId}`,
         {
           withCredentials: true,
         }

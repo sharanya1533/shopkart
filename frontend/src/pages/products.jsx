@@ -16,7 +16,7 @@ setError("");
 
 
   const response = await axios.get(
-    "http://localhost:5000/products",
+    "https://shopkart-ce9s.onrender.com/products",
     {
       params: {
         search,

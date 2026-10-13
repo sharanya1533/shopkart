@@ -14,7 +14,7 @@ setLoading(true);
 setError("");
 
   const response = await axios.get(
-    "http://localhost:5000/wishlist",
+    "https://shopkart-ce9s.onrender.com/wishlist",
     {
       withCredentials: true,
     }
@@ -36,7 +36,7 @@ getWishlist();
 const handleRemove = async (productId) => {
 try {
 await axios.delete(
-`http://localhost:5000/wishlist/${productId}`,
+`https://shopkart-ce9s.onrender.com/wishlist/${productId}`,
 {
 withCredentials: true,
 }

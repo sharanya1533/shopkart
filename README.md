@@ -134,7 +134,7 @@ node index.js
 
 The backend is expected to run at:
 
-`http://localhost:5000`
+`https://shopkart-ce9s.onrender.com`
 
 ### Start the frontend
 

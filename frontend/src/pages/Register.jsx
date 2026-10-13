@@ -23,7 +23,7 @@ e.preventDefault();
 
   try {
     const response = await axios.post(
-      "http://localhost:5000/customers/register",
+      "https://shopkart-ce9s.onrender.com/customers/register",
       formData
     );
 

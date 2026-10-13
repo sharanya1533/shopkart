@@ -14,7 +14,7 @@ function Orders() {
       setError("");
 
       const response = await axios.get(
-        "http://localhost:5000/orders",
+        "https://shopkart-ce9s.onrender.com/orders",
         {
           withCredentials: true,
         }
