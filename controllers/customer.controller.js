@@ -103,12 +103,13 @@ const { email, password } = req.body;
         { expiresIn: "1d" }
     );
 
-    res.cookie("authToken", token, {
-        httpOnly: true,
-        secure: false,
-        sameSite: "lax",
-        path: "/"
-    });
+    
+res.cookie("authToken", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    path: "/"
+});
 
     res.status(200).json({
         success: true,
