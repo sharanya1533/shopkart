@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const Product = require("../models/product.model");
 
 const createProduct = async (req, res) => {
@@ -44,8 +45,9 @@ const { search, category } = req.query;
 let filter = {};
 
 if (search) {
+  const escapedSearch = search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   filter.name = {
-    $regex: search,
+    $regex: escapedSearch,
     $options: "i",
   };
 }
@@ -72,6 +74,13 @@ message: error.message,
 
 const getProductById = async (req, res) => {
 try {
+if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+  return res.status(400).json({
+    success: false,
+    message: "Invalid product ID",
+  });
+}
+
 const product = await Product.findById(req.params.id);
 
 
@@ -98,6 +107,13 @@ message: error.message,
 
 const deleteProduct = async (req, res) => {
 try {
+if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+  return res.status(400).json({
+    success: false,
+    message: "Invalid product ID",
+  });
+}
+
 const product = await Product.findByIdAndDelete(req.params.id);
 
 

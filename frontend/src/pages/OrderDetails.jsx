@@ -120,7 +120,7 @@ function OrderDetails() {
             </div>
 
             <div className="order-detail-items">
-              {order.items.map((item) => (
+              {(order.items || []).map((item) => (
                 <div
                   className="order-detail-item"
                   key={item._id}

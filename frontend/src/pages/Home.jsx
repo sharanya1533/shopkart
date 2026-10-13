@@ -44,7 +44,7 @@ return ( <div className="home-page"> <Navbar />
         </p>
 
         <h1>
-          Hello, {customer.fullName.split(" ")[0]}!
+          Hello, {customer.fullName ? customer.fullName.split(" ")[0] : "Customer"}!
         </h1>
 
         <p className="hero-description">
@@ -136,7 +136,7 @@ return ( <div className="home-page"> <Navbar />
       <div className="profile-card">
         <div className="profile-card-header">
           <div className="profile-avatar">
-            {customer.fullName.charAt(0).toUpperCase()}
+            {customer.fullName ? customer.fullName.charAt(0).toUpperCase() : "U"}
           </div>
 
           <div>

@@ -21,7 +21,9 @@ const { fullName, email, password, phone } = req.body;
         });
     }
 
-    const existingCustomer = await Customer.findOne({ email });
+    const normalizedEmail = email.toLowerCase().trim();
+
+    const existingCustomer = await Customer.findOne({ email: normalizedEmail });
 
     if (existingCustomer) {
         return res.status(409).json({
@@ -33,10 +35,10 @@ const { fullName, email, password, phone } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const customer = await Customer.create({
-        fullName,
-        email,
+        fullName: fullName.trim(),
+        email: normalizedEmail,
         password: hashedPassword,
-        phone
+        phone: phone.trim()
     });
 
     res.status(201).json({
@@ -72,7 +74,9 @@ const { email, password } = req.body;
         });
     }
 
-    const customer = await Customer.findOne({ email });
+    const normalizedEmail = email.toLowerCase().trim();
+
+    const customer = await Customer.findOne({ email: normalizedEmail });
 
     if (!customer) {
         return res.status(401).json({
@@ -102,7 +106,7 @@ const { email, password } = req.body;
     res.cookie("authToken", token, {
         httpOnly: true,
         secure: false,
-        sameSite: "strict",
+        sameSite: "lax",
         path: "/"
     });
 
@@ -155,17 +159,16 @@ const customer = await Customer.findById(req.user.customerId)
 };
 
 const logoutCustomer = (req, res) => {
-res.clearCookie("authToken", {
-path: "/"
-});
+    res.clearCookie("authToken", {
+        path: "/",
+        httpOnly: true,
+        sameSite: "lax"
+    });
 
-
-res.status(200).json({
-    success: true,
-    message: "Logged out successfully"
-});
-
-
+    res.status(200).json({
+        success: true,
+        message: "Logged out successfully"
+    });
 };
 
 module.exports = {

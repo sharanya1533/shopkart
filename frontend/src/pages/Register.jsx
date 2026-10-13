@@ -21,19 +21,17 @@ setFormData({
 const handleSubmit = async (e) => {
 e.preventDefault();
 
-```
-try {
-  const response = await axios.post(
-    "http://localhost:5000/customers/register",
-    formData
-  );
+  try {
+    const response = await axios.post(
+      "http://localhost:5000/customers/register",
+      formData
+    );
 
-  alert(response.data.message);
-} catch (error) {
-  alert(error.response?.data?.message || "Registration failed");
-}
-```
-
+    alert(response.data.message);
+    window.location.href = "/login";
+  } catch (error) {
+    alert(error.response?.data?.message || "Registration failed");
+  }
 };
 
 return ( <div className="auth-page">

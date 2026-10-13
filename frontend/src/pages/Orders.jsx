@@ -20,7 +20,7 @@ function Orders() {
         }
       );
 
-      setOrders(response.data.orders);
+      setOrders(response.data.orders || []);
     } catch (error) {
       setError(
         error.response?.data?.message ||

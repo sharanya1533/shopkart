@@ -34,7 +34,9 @@ function Checkout() {
     document.body.appendChild(script);
 
     return () => {
-      document.body.removeChild(script);
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
     };
   }, []);
 
@@ -192,7 +194,11 @@ if (verifyResponse.data.success) {
     );
   }
 
-  if (cartItems.length === 0) {
+  const validCartItems = (cartItems || []).filter(
+    (item) => item && item.product
+  );
+
+  if (validCartItems.length === 0) {
     return (
       <>
         <Navbar />
@@ -218,12 +224,12 @@ if (verifyResponse.data.success) {
     );
   }
 
-  const totalItems = cartItems.reduce(
+  const totalItems = validCartItems.reduce(
     (total, item) => total + item.quantity,
     0
   );
 
-  const subtotal = cartItems.reduce(
+  const subtotal = validCartItems.reduce(
     (total, item) =>
       total + item.product.price * item.quantity,
     0
@@ -457,7 +463,7 @@ if (verifyResponse.data.success) {
               </div>
 
               <div className="checkout-summary-items">
-                {cartItems.map((item) => (
+                {validCartItems.map((item) => (
                   <div
                     className="checkout-summary-item"
                     key={item.product._id}

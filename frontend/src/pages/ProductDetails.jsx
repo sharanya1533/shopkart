@@ -35,8 +35,8 @@ if (loading) {
 return <h2>Loading product...</h2>;
 }
 
-if (error) {
-return <h2>{error}</h2>;
+if (error || !product) {
+return <h2>{error || "Product not found"}</h2>;
 }
 
 return (

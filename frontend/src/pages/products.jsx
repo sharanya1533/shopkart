@@ -25,7 +25,7 @@ setError("");
     }
   );
 
-  setProducts(response.data.products);
+  setProducts(response.data.products || []);
 } catch (error) {
   setError("Failed to load products");
 } finally {

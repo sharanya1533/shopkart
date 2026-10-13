@@ -50,7 +50,11 @@ function Cart() {
     );
   }
 
-  if (cartItems.length === 0) {
+  const validCartItems = (cartItems || []).filter(
+    (item) => item && item.product
+  );
+
+  if (validCartItems.length === 0) {
     return (
       <>
         <Navbar />
@@ -78,12 +82,12 @@ function Cart() {
     );
   }
 
-  const totalItems = cartItems.reduce(
+  const totalItems = validCartItems.reduce(
     (total, item) => total + item.quantity,
     0
   );
 
-  const subtotal = cartItems.reduce(
+  const subtotal = validCartItems.reduce(
     (total, item) =>
       total + item.product.price * item.quantity,
     0
@@ -109,7 +113,7 @@ function Cart() {
 
         <div className="cart-layout">
           <div className="cart-items">
-            {cartItems.map((item) => {
+            {validCartItems.map((item) => {
               const product = item.product;
               const isLoading =
                 cartActionLoading[product._id];

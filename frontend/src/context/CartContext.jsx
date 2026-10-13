@@ -21,12 +21,16 @@ function CartProvider({ children }) {
         }
       );
 
-      setCartItems(response.data.cart);
+      setCartItems(response.data.cart || []);
     } catch (error) {
-      setCartError(
-        error.response?.data?.message ||
-          "Failed to load cart"
-      );
+      if (error.response?.status === 401) {
+        setCartItems([]);
+      } else {
+        setCartError(
+          error.response?.data?.message ||
+            "Failed to load cart"
+        );
+      }
     } finally {
       setCartLoading(false);
     }
@@ -53,7 +57,7 @@ function CartProvider({ children }) {
         }
       );
 
-      setCartItems(response.data.cart);
+      setCartItems(response.data.cart || []);
 
       return {
         success: true,
@@ -94,7 +98,7 @@ function CartProvider({ children }) {
         }
       );
 
-      setCartItems(response.data.cart);
+      setCartItems(response.data.cart || []);
 
       return {
         success: true,
@@ -132,7 +136,7 @@ function CartProvider({ children }) {
         }
       );
 
-      setCartItems(response.data.cart);
+      setCartItems(response.data.cart || []);
 
       return {
         success: true,

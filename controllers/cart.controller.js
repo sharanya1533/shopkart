@@ -31,8 +31,12 @@ const addToCart = async (req, res) => {
       });
     }
 
+    if (!customer.cart) {
+      customer.cart = [];
+    }
+
     const cartItem = customer.cart.find(
-      (item) => item.product.toString() === productId
+      (item) => item.product && item.product.toString() === productId
     );
 
     if (cartItem) {
@@ -68,10 +72,14 @@ const addToCart = async (req, res) => {
         select: "name description price category image stock",
       });
 
+    const validCart = (updatedCustomer.cart || []).filter(
+      (item) => item && item.product !== null
+    );
+
     res.status(200).json({
       success: true,
       message: "Cart updated",
-      cart: updatedCustomer.cart,
+      cart: validCart,
     });
   } catch (error) {
     res.status(500).json({
@@ -96,9 +104,13 @@ const getCart = async (req, res) => {
       });
     }
 
+    const validCart = (customer.cart || []).filter(
+      (item) => item && item.product !== null
+    );
+
     res.status(200).json({
       success: true,
-      cart: customer.cart,
+      cart: validCart,
     });
   } catch (error) {
     res.status(500).json({
@@ -156,8 +168,12 @@ const updateCartQuantity = async (req, res) => {
       });
     }
 
+    if (!customer.cart) {
+      customer.cart = [];
+    }
+
     const cartItem = customer.cart.find(
-      (item) => item.product.toString() === productId
+      (item) => item.product && item.product.toString() === productId
     );
 
     if (!cartItem) {
@@ -177,10 +193,14 @@ const updateCartQuantity = async (req, res) => {
         select: "name description price category image stock",
       });
 
+    const validCart = (updatedCustomer.cart || []).filter(
+      (item) => item && item.product !== null
+    );
+
     res.status(200).json({
       success: true,
       message: "Cart quantity updated",
-      cart: updatedCustomer.cart,
+      cart: validCart,
     });
   } catch (error) {
     res.status(500).json({
@@ -210,8 +230,12 @@ const removeFromCart = async (req, res) => {
       });
     }
 
+    if (!customer.cart) {
+      customer.cart = [];
+    }
+
     const cartItemIndex = customer.cart.findIndex(
-      (item) => item.product.toString() === productId
+      (item) => item.product && item.product.toString() === productId
     );
 
     if (cartItemIndex === -1) {
@@ -231,10 +255,14 @@ const removeFromCart = async (req, res) => {
         select: "name description price category image stock",
       });
 
+    const validCart = (updatedCustomer.cart || []).filter(
+      (item) => item && item.product !== null
+    );
+
     res.status(200).json({
       success: true,
       message: "Product removed from cart",
-      cart: updatedCustomer.cart,
+      cart: validCart,
     });
   } catch (error) {
     res.status(500).json({

@@ -20,7 +20,7 @@ setError("");
     }
   );
 
-  setWishlist(response.data.wishlist);
+  setWishlist((response.data.wishlist || []).filter((item) => item != null));
 } catch (error) {
   setError("Failed to load wishlist");
 } finally {
@@ -44,7 +44,7 @@ withCredentials: true,
 
   setWishlist((currentWishlist) =>
     currentWishlist.filter(
-      (product) => product._id !== productId
+      (product) => product && product._id !== productId
     )
   );
 } catch (error) {
@@ -54,11 +54,11 @@ withCredentials: true,
 };
 
 return (
-<> <Navbar />
+  <>
+    <Navbar />
 
-```
-  <main className="wishlist-page">
-    <div className="wishlist-header">
+    <main className="wishlist-page">
+      <div className="wishlist-header">
       <div>
         <p className="wishlist-eyebrow">YOUR SAVED ITEMS</p>
 
@@ -119,7 +119,7 @@ return (
 
     {!loading && !error && wishlist.length > 0 && (
       <div className="wishlist-grid">
-        {wishlist.map((product) => (
+        {wishlist.filter((product) => product != null).map((product) => (
           <article
             className="wishlist-card"
             key={product._id}
